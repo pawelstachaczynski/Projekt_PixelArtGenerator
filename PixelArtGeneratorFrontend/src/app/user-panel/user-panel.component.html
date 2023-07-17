@@ -1,0 +1,79 @@
+<mat-toolbar color="primary">
+    <span class="logo">Pixel Art Generator</span>
+  </mat-toolbar>
+
+  <div class="container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Witaj w PixelArtGenerator!</mat-card-title>
+      </mat-card-header>
+      
+      
+      <mat-card-content>
+        <div class="description">
+          Zapraszamy do świata pikseli, gdzie Twoja wyobraźnia jest jedynym ograniczeniem. Rozpocznij tworzenie swojego pierwszego piksel artu już teraz i ciesz się procesem tworzenia pięknych i unikalnych grafik pikselowych.
+          Gotowy, by stworzyć coś wyjątkowego? Włącz swoją kreatywność i zanurz się w świecie PixelArtGenerator!
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col col-1">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title >Wybierz zdjęcie</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="form-fields">
+              <button type="button" mat-raised-button (click)="fileInput.click()">Wybierz</button>
+              <div>
+                <input hidden (change)="onFileSelected($event)" #fileInput type="file"><br>
+                <div class="file-name description" *ngIf="selectedFile">{{selectedFile?.name}}</div>
+              </div>
+              <mat-form-field>
+                <mat-label>Szerokość</mat-label>
+                <input matInput type="number" [(ngModel)]="width" name="width">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Wysokość</mat-label>
+                <input matInput type="number" [(ngModel)]="height" name="height">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Paleta kolorów</mat-label>
+                <mat-select [(value)]="colorPalette" name="colorPalette">
+                  <mat-option value="Unchanged">Bez zmian</mat-option>
+                  <mat-option value="Grayscale">Skala szarości</mat-option>
+                  <mat-option value="Sepia">Sepia</mat-option>
+                  <mat-option value="Neon">Neon</mat-option>
+                  <mat-option value="Winter">Winter</mat-option>
+                  <mat-option value="Muted">Muted</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Wybierz efekt</mat-label>
+                <mat-select [(value)]="option" name="option">
+                  <mat-option value="1">Pixel</mat-option>
+                  <mat-option value="2">Efekt drgań</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button mat-raised-button color="primary" (click)="uploadImage()" [disabled]="!selectedFile">Wyślij</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col col-2">
+        <mat-card>
+          
+          <mat-card-content>
+            <div class="description" *ngIf="processedImage">
+              <h2 class="title">Wynik:</h2>
+              <div id="ready" ><button id="ready" mat-raised-button color="primary" (click)="downloadImage()">Pobierz obrazek</button><br></div>
+              <img [src]="processedImage" alt="Przetworzone zdjęcie" [style.max-width.px]="800" [style.max-height.px]="800">
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  
